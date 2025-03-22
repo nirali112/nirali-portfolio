@@ -42,13 +42,20 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('theme', theme);
     });
 
-    // Apply saved theme from localStorage
+    // Apply dark theme by default if no saved preference exists
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    if (savedTheme === 'light') {
+        // If explicitly set to light, keep it light
+        const icon = themeToggle.querySelector('i');
+        icon.classList.add('fa-moon');
+    } else {
+        // Default to dark theme
         document.body.classList.add('dark-theme');
         const icon = themeToggle.querySelector('i');
         icon.classList.remove('fa-moon');
         icon.classList.add('fa-sun');
+        // Save the default preference
+        localStorage.setItem('theme', 'dark');
     }
 
     // Add shadow to navbar on scroll
@@ -137,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // First send the notification to you
             emailjs.send('service_vd7sc98', 'template_uzsfyqr', templateParams)
                 // .then(function () {
-                //     // Then send the auto-reply to the visitor 
+                //     // Then send the auto-reply to the visitor // not needed now
                 //     return emailjs.send('service_vd7sc98', 'template_z5krj1l', templateParams);
                 // })
                 .then(function (response) {
